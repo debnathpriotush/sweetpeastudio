@@ -1,0 +1,27 @@
+{
+  "shopName": "Sweet Pea Studio",
+  "logo": "",
+  "headline": "Handmade with love, made to make you smile",
+  "tagline": "Cute hair accessories and little gifts, made by hand in Sylhet",
+  "ownerName": "Nusrat Jahan",
+  "story": "Hi, I'm Nusrat! I started Sweet Pea Studio from my bedroom table with a pack of ribbons and a lot of patience. Every hair band, scrunchie and keychain is made by hand, one at a time, with soft fabrics and happy colours. I hope they bring a little joy to your day.",
+  "ownerPhoto": "",
+  "whatsapp": "8801717568430",
+  "instagram": "https://instagram.com/sweetpeastudio",
+  "facebook": "https://facebook.com/sweetpeastudio",
+  "currency": "৳",
+  "sellingPoints": [
+    "100% handmade, no two are exactly alike",
+    "Soft, skin-friendly fabrics",
+    "Gift wrapping available on request"
+  ],
+  "goodToKnow": [
+    "Delivery takes 2 to 3 days inside Sylhet and 4 to 6 days outside Sylhet",
+    "Colours may look slightly different on your screen",
+    "Exchange within 3 days if the item arrives damaged",
+    "Custom colours and bulk orders are welcome, just message us"
+  ],
+  "deliveryInside": 60,
+  "deliveryOutside": 120,
+  "paymentNote": "Cash on delivery, or bKash 01XXXXXXXXX (send money, then share the transaction ID on WhatsApp)."
+}

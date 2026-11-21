@@ -1,0 +1,87 @@
+backend:
+  name: github
+  repo: YOUR-GITHUB-USERNAME/sweetpeastudio.github.io
+  branch: main
+  base_url: https://YOUR-AUTH-WORKER.workers.dev
+
+media_folder: images/uploads
+public_folder: /images/uploads
+
+collections:
+  - name: shop
+    label: "Shop details"
+    files:
+      - name: shop_details
+        label: "Shop details"
+        file: content/shop.json
+        fields:
+          - { label: "Shop name", name: shopName, widget: string }
+          - { label: "Logo", name: logo, widget: image, required: false }
+          - { label: "Big headline", name: headline, widget: string }
+          - { label: "Tagline", name: tagline, widget: string }
+          - { label: "Owner name", name: ownerName, widget: string, required: false }
+          - { label: "Owner's story (leave empty to hide About section)", name: story, widget: text, required: false }
+          - { label: "Owner photo", name: ownerPhoto, widget: image, required: false }
+          - { label: "WhatsApp number (country code first, example 8801XXXXXXXXX)", name: whatsapp, widget: string }
+          - { label: "Instagram link", name: instagram, widget: string, required: false }
+          - { label: "Facebook link", name: facebook, widget: string, required: false }
+          - { label: "Currency symbol", name: currency, widget: string, default: "৳" }
+          - label: "Selling points"
+            name: sellingPoints
+            widget: list
+            field: { label: "Point", name: point, widget: string }
+          - label: "Good to know"
+            name: goodToKnow
+            widget: list
+            field: { label: "Note", name: note, widget: string }
+          - { label: "Delivery charge inside Sylhet", name: deliveryInside, widget: number, value_type: int, default: 60 }
+          - { label: "Delivery charge outside Sylhet", name: deliveryOutside, widget: number, value_type: int, default: 120 }
+          - { label: "Payment note", name: paymentNote, widget: text, required: false }
+
+  - name: categories
+    label: "Categories"
+    files:
+      - name: categories_list
+        label: "Categories"
+        file: content/categories.json
+        fields:
+          - label: "Categories"
+            name: categories
+            widget: list
+            fields:
+              - { label: "Name", name: name, widget: string }
+              - { label: "Emoji", name: emoji, widget: string, required: false }
+              - { label: "Logo or photo", name: image, widget: image, required: false }
+              - { label: "Hide this category (also hides its products)", name: hidden, widget: boolean, default: false }
+
+  - name: products
+    label: "Products"
+    files:
+      - name: products_list
+        label: "Products"
+        file: content/products.json
+        fields:
+          - label: "Products (new ones on top)"
+            name: products
+            widget: list
+            add_to_top: true
+            fields:
+              - { label: "Product code (set once, never change)", name: code, widget: string, hint: "Example: hb-001. Do not change after saving." }
+              - { label: "Name", name: name, widget: string }
+              - { label: "Category", name: category, widget: relation, collection: categories, file: categories_list, search_fields: ["categories.*.name"], value_field: "categories.*.name", display_fields: ["categories.*.name"] }
+              - { label: "Price", name: price, widget: number, value_type: int }
+              - { label: "Sale price (must be lower than the price, otherwise ignored)", name: salePrice, widget: number, value_type: int, required: false }
+              - { label: "Photo", name: photo, widget: image, required: false }
+              - { label: "More photos", name: morePhotos, widget: list, required: false, field: { label: "Photo", name: morePhoto, widget: image } }
+              - { label: "Emoji", name: emoji, widget: string, required: false }
+              - { label: "Sold out", name: soldOut, widget: boolean, default: false }
+              - { label: "Description", name: description, widget: text, required: false }
+              - { label: "Sizes (only if this product has sizes)", name: sizes, widget: list, required: false, field: { label: "Size", name: size, widget: string } }
+              - { label: "Video link or upload", name: video, widget: file, required: false }
+              - label: "Questions and answers"
+                name: qa
+                widget: list
+                required: false
+                fields:
+                  - { label: "Question", name: question, widget: string }
+                  - { label: "Answer", name: answer, widget: text }

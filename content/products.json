@@ -1,0 +1,114 @@
+{
+  "products": [
+    {
+      "code": "gb-001",
+      "name": "Mini Surprise Gift Box",
+      "category": "Gift Boxes",
+      "price": 850,
+      "salePrice": 699,
+      "photo": "",
+      "morePhotos": [],
+      "emoji": "🎁",
+      "soldOut": false,
+      "description": "A cute box filled with 2 hair bands, 1 scrunchie and a keychain, wrapped with a ribbon and a handwritten note. Perfect for birthdays.",
+      "sizes": ["Small", "Large"],
+      "video": "",
+      "qa": [
+        { "question": "Can I choose the colours?", "answer": "Yes! Tell us your favourite colours on WhatsApp after ordering." },
+        { "question": "Is gift wrapping included?", "answer": "Yes, every gift box comes wrapped." }
+      ]
+    },
+    {
+      "code": "hb-001",
+      "name": "Lavender Bow Hair Band",
+      "category": "Hair Bands",
+      "price": 180,
+      "salePrice": null,
+      "photo": "",
+      "morePhotos": [],
+      "emoji": "🎀",
+      "soldOut": false,
+      "description": "A soft padded hair band with a handmade lavender bow. Gentle on the head and stays in place all day.",
+      "sizes": [],
+      "video": "",
+      "qa": [
+        { "question": "Is it comfortable for long wear?", "answer": "Yes, the band is soft and padded, so it does not pinch." }
+      ]
+    },
+    {
+      "code": "hb-002",
+      "name": "Mint Pearl Hair Band",
+      "category": "Hair Bands",
+      "price": 220,
+      "salePrice": 180,
+      "photo": "",
+      "morePhotos": [],
+      "emoji": "🤍",
+      "soldOut": false,
+      "description": "Mint green hair band decorated with tiny pearl beads. Looks lovely with both casual and party outfits.",
+      "sizes": [],
+      "video": "",
+      "qa": []
+    },
+    {
+      "code": "sc-001",
+      "name": "Satin Scrunchie Set (3 pcs)",
+      "category": "Scrunchies",
+      "price": 300,
+      "salePrice": null,
+      "photo": "",
+      "morePhotos": [],
+      "emoji": "🌸",
+      "soldOut": false,
+      "description": "A set of three silky satin scrunchies in pink, lilac and mint. Gentle on hair and does not leave dents.",
+      "sizes": ["Regular", "Jumbo"],
+      "video": "",
+      "qa": []
+    },
+    {
+      "code": "sc-002",
+      "name": "Floral Cotton Scrunchie",
+      "category": "Scrunchies",
+      "price": 120,
+      "salePrice": null,
+      "photo": "",
+      "morePhotos": [],
+      "emoji": "🌼",
+      "soldOut": true,
+      "description": "Soft cotton scrunchie in a small floral print. Back in stock soon.",
+      "sizes": [],
+      "video": "",
+      "qa": []
+    },
+    {
+      "code": "kc-001",
+      "name": "Cherry Blossom Keychain",
+      "category": "Keychains",
+      "price": 150,
+      "salePrice": 120,
+      "photo": "",
+      "morePhotos": [],
+      "emoji": "🌸",
+      "soldOut": false,
+      "description": "A tiny handmade blossom charm on a strong metal ring. Clip it on your bag, keys or school pouch.",
+      "sizes": [],
+      "video": "",
+      "qa": []
+    },
+    {
+      "code": "kc-002",
+      "name": "Tiny Teddy Keychain",
+      "category": "Keychains",
+      "price": 200,
+      "salePrice": null,
+      "photo": "",
+      "morePhotos": [],
+      "emoji": "🧸",
+      "soldOut": false,
+      "description": "A cuddly little teddy keychain, hand-stitched and stuffed with soft fibre.",
+      "sizes": [],
+      "video": "",
+      "qa": []
+    }
+  ]
+}

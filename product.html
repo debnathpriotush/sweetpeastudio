@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Product</title>
+  <link rel="icon" id="favicon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="previewBar" class="preview-bar" hidden>Preview mode: showing sample content</div>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a href="index.html" class="brand">
+      <img id="logo" alt="" hidden>
+      <span id="shopName"></span>
+    </a>
+    <a id="topWa" class="btn btn-wa small" target="_blank" rel="noopener">💬 WhatsApp</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <a href="index.html" class="back">← Back to shop</a>
+  <div id="view"><p style="text-align:center;color:var(--muted);padding:60px 0">Loading...</p></div>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div>© <span id="year"></span> <span id="footName"></span></div>
+    <div class="foot-links">
+      <a id="footWa" class="btn btn-wa small" target="_blank" rel="noopener">💬 WhatsApp</a>
+      <a id="fb" class="social" target="_blank" rel="noopener" aria-label="Facebook" hidden>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg>
+      </a>
+      <a id="ig" class="social" target="_blank" rel="noopener" aria-label="Instagram" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script src="order.js"></script>
+<script>
+(function () {
+  'use strict';
+  var S = window.Shop;
+  var view = document.getElementById('view');
+
+  function message(emoji, title, text) {
+    view.innerHTML =
+      '<div class="msg"><div class="empty-emoji">' + emoji + '</div>' +
+      '<h2>' + S.esc(title) + '</h2><p>' + S.esc(text) + '</p>' +
+      '<a class="btn btn-main" href="index.html">Back to shop</a></div>';
+  }
+
+  function videoHtml(url) {
+    if (!url) return '';
+    var yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/|youtube\.com\/embed\/)([\w-]{11})/);
+    var vm = url.match(/vimeo\.com\/(\d+)/);
+    var inner;
+    if (yt) inner = '<iframe src="https://www.youtube.com/embed/' + yt[1] + '" allowfullscreen loading="lazy"></iframe>';
+    else if (vm) inner = '<iframe src="https://player.vimeo.com/video/' + vm[1] + '" allowfullscreen loading="lazy"></iframe>';
+    else inner = '<video controls playsinline preload="metadata" src="' + S.esc(S.img(url)) + '"></video>';
+    return '<h2 class="section-title">Watch video</h2><div class="video-box">' + inner + '</div>';
+  }
+
+  function qaHtml(list) {
+    var items = (list || []).filter(function (x) { return x && x.question && x.answer; });
+    if (!items.length) return '';
+    return '<h2 class="section-title">Questions and answers</h2>' +
+      items.map(function (x) {
+        return '<div class="qa-item"><div class="qa-q">Q: ' + S.esc(x.question) + '</div><div class="qa-a">' + S.esc(x.answer) + '</div></div>';
+      }).join('');
+  }
+
+  function relatedHtml(p) {
+    var list = S.visibleProducts().filter(function (x) {
+      return x.code !== p.code && x.category === p.category && !x.soldOut;
+    }).slice(0, 4);
+    if (!list.length) return '';
+    return '<section class="related"><h2 class="section-title">You may also like</h2>' +
+      '<div class="grid" id="relGrid">' +
+      list.map(function (x) { return S.cardHtml(x, S.products.indexOf(x)); }).join('') +
+      '</div></section>';
+  }
+
+  function render(p) {
+    var photos = [p.photo].concat(p.morePhotos || []).filter(Boolean);
+    var tint = S.tint(S.products.indexOf(p));
+
+    var main;
+    if (photos.length) main = '<img id="mainImg" src="' + S.esc(S.img(photos[0])) + '" alt="' + S.esc(p.name) + '">';
+    else main = S.esc(p.emoji || '🎁');
+
+    var thumbs = '';
+    if (photos.length > 1) {
+      thumbs = '<div class="thumbs" id="thumbs">' + photos.map(function (ph, i) {
+        return '<button type="button" class="thumb' + (i === 0 ? ' active' : '') + '" data-src="' + S.esc(S.img(ph)) + '" aria-label="Photo ' + (i + 1) + '"><img src="' + S.esc(S.img(ph)) + '" alt="" loading="lazy"></button>';
+      }).join('') + '</div>';
+    }
+
+    var orderBtn;
+    if (p.soldOut) orderBtn = '<span class="sold">Sold out</span>';
+    else if (typeof window.openOrder === 'function')
+      orderBtn = '<button class="btn btn-wa block" type="button" data-order="' + S.esc(p.code) + '">🛒 Order now</button>';
+    else
+      orderBtn = '<a class="btn btn-wa block" target="_blank" rel="noopener" href="' + S.esc(S.waLink(S.orderMessage(p))) + '">💬 Order on WhatsApp</a>';
+
+    var askMsg = 'Hi! I have a question about "' + p.name + '":\n' + S.productUrl(p);
+    var ask = '<a class="btn btn-soft block" target="_blank" rel="noopener" href="' + S.esc(S.waLink(askMsg)) + '">💬 Ask on WhatsApp</a>';
+
+    var desc = (p.description || '').trim();
+
+    view.innerHTML =
+      '<div class="product">' +
+        '<div class="gallery">' +
+          '<div class="main ' + tint + '">' + main + S.badgeHtml(p) + '</div>' + thumbs +
+        '</div>' +
+        '<div class="pinfo">' +
+          '<div class="card-cat">' + S.esc(p.category || '') + '</div>' +
+          '<h1>' + S.esc(p.name) + '</h1>' +
+          '<div class="price">' + S.priceHtml(p) + '</div>' +
+          (desc ? '<p class="desc">' + S.esc(desc) + '</p>' : '<div style="height:16px"></div>') +
+          '<div class="pbtns">' + orderBtn + ask + '</div>' +
+        '</div>' +
+      '</div>' +
+      qaHtml(p.qa) +
+      videoHtml((p.video || '').trim()) +
+      relatedHtml(p);
+
+    document.title = p.name + ' | ' + (S.shop.shopName || 'Shop');
+  }
+
+  // clicks: order buttons, thumbnails
+  document.addEventListener('click', function (e) {
+    var ob = e.target.closest('[data-order]');
+    if (ob) {
+      var p = S.findProduct(ob.getAttribute('data-order'));
+      if (p && typeof window.openOrder === 'function') window.openOrder(p);
+      return;
+    }
+    var th = e.target.closest('.thumb');
+    if (th) {
+      var img = document.getElementById('mainImg');
+      if (img) img.src = th.getAttribute('data-src');
+      var all = document.querySelectorAll('.thumb');
+      for (var i = 0; i < all.length; i++) all[i].classList.remove('active');
+      th.classList.add('active');
+    }
+  });
+
+  var code = new URLSearchParams(location.search).get('p');
+
+  S.load().then(function () {
+    S.applyCommon();
+    if (!code) {
+      message('🤔', 'No product selected', 'Please pick a product from the shop.');
+      return;
+    }
+    var p = S.findProduct(code);
+    var hidden = p && S.hiddenCats()[p.category];
+    if (!p || hidden) {
+      message('😕', 'Product not found', 'This product may have been removed or the link is not correct.');
+      return;
+    }
+    render(p);
+  }).catch(function () {
+    message('😕', 'Something went wrong', 'We could not load this page right now. Please refresh and try again.');
+  });
+})();
+</script>
+</body>
+</html>

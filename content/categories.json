@@ -1,0 +1,8 @@
+{
+  "categories": [
+    { "name": "Hair Bands", "emoji": "🎀", "image": "", "hidden": false },
+    { "name": "Scrunchies", "emoji": "🌸", "image": "", "hidden": false },
+    { "name": "Keychains", "emoji": "🔑", "image": "", "hidden": false },
+    { "name": "Gift Boxes", "emoji": "🎁", "image": "", "hidden": false }
+  ]
+}
